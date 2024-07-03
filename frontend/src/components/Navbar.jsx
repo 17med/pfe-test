@@ -43,7 +43,7 @@ const NavbarComponent = () => {
               <Link to="/login" style={{ textDecoration: "none" }}>
                 <Nav.Link href="#account" className="mx-2">
                   <CiLogin style={{ fontSize: "20px", marginRight: "10px" }} />
-                  Login
+                  Connexion
                 </Nav.Link>
               </Link>
             ) : (
@@ -81,7 +81,7 @@ const NavbarComponent = () => {
                   }}
                 >
                   <CiLogin style={{ fontSize: "20px", marginRight: "10px" }} />
-                  Logout
+                  Déconnexion
                 </Nav.Link>
               </>
             )}

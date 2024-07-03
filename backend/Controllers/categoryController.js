@@ -17,7 +17,7 @@ export default class CategoryController {
   }
   static async updateCategory(req, res) {
     try {
-      await Category.findByIdAndUpdate(req.body.id, req.body);
+      await Category.findByIdAndUpdate(req.body._id, req.body);
       res.json({ msg: "Category updated successfully" });
     } catch (err) {
       res.status(400).json({ error: err.message });

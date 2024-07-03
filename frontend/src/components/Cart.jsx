@@ -4,7 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import ListGroup from "react-bootstrap/ListGroup";
 import StateManager from "./../Services/StateManager";
 import "../Style/cart.css";
-import { deletefromcart } from "../Services/User.js";
+import { deletefromcart, commande } from "../Services/User.js";
 
 function Cart() {
   const show = StateManager((state) => state.show);
@@ -15,6 +15,17 @@ function Cart() {
 
   const handleRemoveItem = (id) => {
     deletefromcart({ id: id }, StateManager.getState().ajouter);
+  };
+  const submit = () => {
+    var s = 0;
+    for (var i = 0; i < cartItems.length; i++) {
+      s += cartItems[i].price * cartItems[i].amount;
+    }
+    console.log(
+      { products: StateManager.getState().cart, total: s },
+      "rrrrrrrrrrr"
+    );
+    commande({ products: StateManager.getState().cart, total: s }, handleClose);
   };
 
   return (
@@ -53,7 +64,7 @@ function Cart() {
           <Button
             variant="primary"
             disabled={cartItems.length === 0}
-            onClick={handleClose}
+            onClick={submit}
           >
             Checkout
           </Button>

@@ -6,6 +6,7 @@ import AdminUser from "./Pages/AdminUser";
 import AdminProd from "./Pages/AdminProd";
 import ProductSearch from "./Pages/ProductSearch";
 import AdminCategory from "./Pages/AdminCategory";
+import CommandeManger from "./Pages/CommandeManger";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import useLoginStore from "./Services/StateManager";
@@ -50,6 +51,7 @@ function App() {
               <Route path="/admin/users" element={<AdminUser />} />
               <Route path="/admin/product" element={<AdminProd />} />
               <Route path="/admin/category" element={<AdminCategory />} />
+              <Route path="/admin/commande" element={<CommandeManger />} />
               <Route path="*" element={<Navigate to="/admin" />} />
             </>
           )}

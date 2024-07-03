@@ -42,9 +42,11 @@ const ProductManagement = ({ products, refreshProducts, categories }) => {
     imgFile: null,
     _id: null,
   });
+
   useEffect(() => {
     console.log("products", currentProduct);
   }, [currentProduct]);
+
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
@@ -131,12 +133,13 @@ const ProductManagement = ({ products, refreshProducts, categories }) => {
         <tbody>
           {filteredProducts.map((product) => (
             <tr key={product._id}>
-              <td className="centersome">
+              <td className="center">
                 <div className="image-container">
                   {
                     <img
                       className=""
                       src={"http://localhost:3000/products/" + product.img}
+                      alt={product.name}
                     />
                   }
                 </div>
@@ -144,7 +147,7 @@ const ProductManagement = ({ products, refreshProducts, categories }) => {
               <td>{product.name}</td>
               <td>{product.description}</td>
               <td>${product.price.toFixed(2)}</td>
-              <td>{product.category}</td>
+              <td>{product.category.join(", ")}</td>
               <td>
                 <Button
                   variant="warning"

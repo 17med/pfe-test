@@ -14,7 +14,7 @@ const ProductSearch = () => {
     searchProduct({ search: "", category: "all" }, setproduct);
   }, []);
 
-  const [filters, setFilters] = useState("");
+  const [filters, setFilters] = useState("all");
   useEffect(() => {
     searchProduct({ search: searchTerm, category: filters }, setproduct);
   }, [filters, searchTerm]);
@@ -55,7 +55,7 @@ const ProductSearch = () => {
                   {categories.map((category) => (
                     <option value={category.name}>{category.name}</option>
                   ))}
-                  {/* Add more categories as needed */}
+                  
                 </Form.Select>
                 <Button
                   variant="primary"
@@ -64,11 +64,11 @@ const ProductSearch = () => {
                 >
                   <BsSearch /> Search
                 </Button>
-                {/* Add more filter options here */}
+                
               </Card.Body>
             </Card>
           </Col>
-          {/* Right Side: Product List (Placeholder) */}
+         
           <Col md={10}>
             <Card className="shadow-sm">
               <Card.Body>

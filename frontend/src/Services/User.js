@@ -138,6 +138,19 @@ async function searchProduct(data, setproducts) {
     toast.error(err.response.data.error);
   }
 }
+async function commande(data, run) {
+  try {
+    const x = await axios.post("http://localhost:3000/api/Commande/", data, {
+      withCredentials: true,
+    });
+
+    toast.success("done");
+    run();
+    islogin();
+  } catch (err) {
+    toast.error(err.response.data.error);
+  }
+}
 export {
   login,
   signup,
@@ -148,4 +161,5 @@ export {
   deletefromcart,
   getCategories,
   searchProduct,
+  commande,
 };

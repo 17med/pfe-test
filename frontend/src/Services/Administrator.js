@@ -40,10 +40,11 @@ export async function deleteuser(data, refrech) {
 }
 export async function updateuser(data, refrech) {
   try {
-    console.log(data);
+    console.log(data, "dataaaa");
     const x = await axios.post("http://localhost:3000/api/users/update", data);
-    refrech();
+
     toast.success("done");
+    refrech();
   } catch (err) {
     toast.error(err.response.data.error);
   }
@@ -180,6 +181,17 @@ export async function getAllProducts(setProducts) {
       "http://localhost:3000/api/Products/getallproducts"
     );
     setProducts(response.data);
+  } catch (err) {
+    toast.error(err.response.data.error);
+  }
+}
+export async function getcommandes(setcommandes) {
+  try {
+    const x = await axios.get("http://localhost:3000/api/Commande/", {
+      withCredentials: true,
+    });
+    console.log(x.data, "commandes");
+    setcommandes(x.data);
   } catch (err) {
     toast.error(err.response.data.error);
   }

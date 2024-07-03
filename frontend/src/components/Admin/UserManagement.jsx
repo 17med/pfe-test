@@ -73,7 +73,7 @@ const UserManagement = ({ users, refrech }) => {
         </Col>
         <Col xs="auto">
           <Button variant="primary" onClick={() => handleShowModal()}>
-            <FaPlus /> Add User
+            <FaPlus /> Ajouter un utilisateur
           </Button>
         </Col>
       </Row>
@@ -98,14 +98,14 @@ const UserManagement = ({ users, refrech }) => {
                   style={{ marginRight: "20px" }}
                   onClick={() => handleShowModal(user)}
                 >
-                  <FaEdit /> Edit
+                  <FaEdit /> Modifier
                 </Button>
                 <Button
                   variant="danger"
                   onClick={() => handleDeleteUser(user._id)}
                   className="ml-2"
                 >
-                  <FaTrash /> Delete
+                  <FaTrash /> Supprimer
                 </Button>
               </td>
             </tr>
@@ -165,10 +165,10 @@ const UserManagement = ({ users, refrech }) => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleCloseModal}>
-            Close
+            Fermer
           </Button>
           <Button variant="primary" onClick={handleSaveUser}>
-            Save
+            Enregistrer
           </Button>
         </Modal.Footer>
       </Modal>

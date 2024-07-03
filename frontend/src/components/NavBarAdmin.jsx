@@ -14,7 +14,7 @@ const NavbarAdmin = () => {
   return (
     <Navbar bg="dark" variant="dark" className="flex-column h-100">
       <Navbar.Brand style={{ fontSize: "1.5rem", padding: "20px 0" }}>
-        Admin Dashboard
+        Dashboard administrateur
       </Navbar.Brand>
       <Nav className="flex-column">
         <Link to="/admin" className="linkurl">
@@ -32,19 +32,19 @@ const NavbarAdmin = () => {
         <Link to="/admin/category" className="linkurl">
           <Nav.Link href="#products" className="nav-link-custom">
             <CiCircleList className="nav-icon" />
-            Category
+            Les catégories
           </Nav.Link>
         </Link>
         <Link to="/admin/product" className="linkurl">
           <Nav.Link href="#products" className="nav-link-custom">
             <AiOutlineProduct className="nav-icon" />
-            Produit
+            Les produits
           </Nav.Link>
         </Link>
         <Link to="/admin/commande" className="linkurl">
           <Nav.Link href="#orders" className="nav-link-custom">
             <MdOutlineProductionQuantityLimits className="nav-icon" />
-            Commande
+            Les commandes
           </Nav.Link>
         </Link>
       </Nav>
@@ -54,7 +54,7 @@ const NavbarAdmin = () => {
         onClick={handleLogout}
       >
         <CiLogout className="nav-icon" />
-        Logout
+        Déconnexion
       </Button>
     </Navbar>
   );
