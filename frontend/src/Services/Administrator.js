@@ -61,6 +61,21 @@ export async function addCategory(data, refresh) {
     toast.error(err.response.data.error);
   }
 }
+
+export async function getCategoriess(setcategories) {
+  try {
+    const x = await axios.get(
+      "http://localhost:3000/api/Category/getcategories"
+    );
+    const r = x.data.forEach((element) => {
+      element = element.name;
+    });
+    setcategories(r);
+  } catch (err) {
+    toast.error(err.response.data.error);
+  }
+}
+
 export async function getCategories(setcategories) {
   try {
     const x = await axios.get(
@@ -131,7 +146,7 @@ export async function deleteProduct(id, refresh) {
     );
 
     toast.success(response.data.msg);
-    refresh(); // Optional: Call a function to refresh the product list
+    refresh();
   } catch (err) {
     toast.error(err.response.data.error);
   }
@@ -140,15 +155,9 @@ export async function deleteProduct(id, refresh) {
 // Function to update a product
 export async function updateProduct(data, refresh) {
   try {
-    const formData = new FormData();
-    formData.append("id", data.id);
-    formData.append("name", data.name);
-    formData.append("price", data.price);
-    formData.append("category", data.category);
-    formData.append("image", data.image);
-
+    const formData = data;
     const response = await axios.post(
-      "http://localhost:3000/api/Products/getallproducts",
+      "http://localhost:3000/api/Products/update",
       formData,
       {
         headers: {
@@ -158,13 +167,13 @@ export async function updateProduct(data, refresh) {
     );
 
     toast.success(response.data.msg);
-    refresh(); // Optional: Call a function to refresh the product list
+    refresh();
   } catch (err) {
+    console.log(err);
     toast.error(err.response.data.error);
   }
 }
 
-// Function to get all products
 export async function getAllProducts(setProducts) {
   try {
     const response = await axios.get(

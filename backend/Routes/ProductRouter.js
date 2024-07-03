@@ -19,4 +19,15 @@ router.get(
   UserMiddleware.isadmin,
   ProductController.getallproducts
 );
+router.post(
+  "/update",
+  UserMiddleware.isadmin,
+  upload.single("image"),
+  ProductController.updateproduct
+);
+router.get( 
+  "/getrandom",
+
+  ProductController.getrandom
+);
 export default router;

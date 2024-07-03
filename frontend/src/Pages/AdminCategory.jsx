@@ -33,7 +33,6 @@ const AdminDashboard = () => {
           <NavbarAdmin />
         </Col>
 
-        {/* Main Content */}
         <Col sm={10} md={10} lg={10} xl={10} className="main-content">
           <Container fluid className="mt-3 h-100">
             <Card className="h-100">

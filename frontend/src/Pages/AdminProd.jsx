@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import "../Style/AdminDashboard.css";
-import { getAllProducts } from "../Services/Administrator.js";
+import { getAllProducts, getCategories } from "../Services/Administrator.js";
 import { Link } from "react-router-dom";
 import NavbarAdmin from "../components/NavBarAdmin.jsx";
 import ProdManagment from "../components/Admin/ProdManagment.jsx";
@@ -18,8 +18,10 @@ import {
 const AdminDashboard = () => {
   const [product, setproduct] = useState([]);
   const [refrechvar, setrefrechvar] = useState(false);
+  const [categories, setcategories] = useState([]);
   useEffect(() => {
     getAllProducts(setproduct);
+    getCategories(setcategories);
   }, [refrechvar]);
   const refrech = () => {
     setrefrechvar(!refrechvar);
@@ -37,7 +39,11 @@ const AdminDashboard = () => {
             <Card className="h-100">
               <Card.Body>
                 <h2>Product</h2>
-                <ProdManagment products={product} refreshProducts={refrech} />
+                <ProdManagment
+                  products={product}
+                  refreshProducts={refrech}
+                  categories={categories}
+                />
               </Card.Body>
             </Card>
           </Container>

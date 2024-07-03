@@ -1,7 +1,27 @@
 /* App.css */
 body {
   margin: 0;
+
   font-family: Arial, sans-serif;
+}
+
+.custom-dropdown-button {
+  background-color: #212529;
+  color: white;
+  border: none;
+}
+
+.custom-dropdown-menu {
+  background-color: #212529;
+  color: white;
+}
+
+.custom-dropdown-menu .dropdown-item {
+  color: white;
+}
+
+.custom-dropdown-menu .dropdown-item:hover {
+  background-color: #343a40;
 }
 .linkurl {
   color: #000;
@@ -11,7 +31,31 @@ body {
   color: #000;
   text-decoration: underline;
 }
-
+.centersome {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.image-container {
+  width: 100px;
+  height: 100px;
+  overflow: hidden; /* Ensure the image doesn't overflow */
+}
+.image-container2 {
+  width: 100%;
+  height: 400px;
+  overflow: hidden; /* Ensure the image doesn't overflow */
+}
+.image-container2 img {
+  width: 100%; /* Make sure the image fills its container */
+  height: 100%; /* Maintain aspect ratio */
+  object-fit: cover; /* Maintain aspect ratio and cover container */
+}
+.image-container img {
+  width: 100%; /* Make sure the image fills its container */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: cover; /* Maintain aspect ratio and cover container */
+}
 .navbar {
   background-color: #333;
   color: #fff;

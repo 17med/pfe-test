@@ -12,7 +12,7 @@ async function login(data, navigate) {
     const d = await axios.get("http://localhost:3000/api/Cart/getCart", {
       withCredentials: true,
     });
-    
+
     StateManaer.getState().login(
       x.data.user,
       x.data.id,
@@ -44,7 +44,9 @@ async function signup(data, navigate) {
 }
 async function logout() {
   try {
-    await axios.get("http://localhost:3000/api/users/logout");
+    await axios.get("http://localhost:3000/api/users/logout", {
+      withCredentials: true,
+    });
     StateManaer.getState().logout();
 
     toast.success("done");
@@ -70,5 +72,13 @@ async function islogin() {
     console.log(err);
   }
 }
-
-export { login, signup, logout, islogin };
+async function getrandom(setx) {
+  try {
+    const x = await axios.get("http://localhost:3000/api/Products/getrandom", {
+      withCredentials: true,
+    });
+    console.log(x.data, "datttttttttttttttttttttttaaaaaaaaaa");
+    setx(x.data);
+  } catch (err) {}
+}
+export { login, signup, logout, islogin, getrandom };

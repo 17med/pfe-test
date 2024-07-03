@@ -1,10 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-
+import { getrandom } from "../Services/User";
 import Carousel from "../components/Carousel";
 import ProductList from "../components/ProductList";
 import Footer from "../components/Footer";
 function App() {
+  const [product, setproduct] = useState([]);
+  useEffect(() => {
+    getrandom(setproduct);
+  }, []);
   return (
     <>
       <Navbar />
@@ -23,7 +27,7 @@ function App() {
           </div>
         </div>
         <br />
-        <ProductList />
+        <ProductList prodlist={product} />
         <Footer />
       </div>
     </>

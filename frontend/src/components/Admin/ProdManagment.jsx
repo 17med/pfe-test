@@ -1,5 +1,14 @@
 import React, { useState } from "react";
-import { Table, Button, Form, Modal, Row, Col } from "react-bootstrap";
+import {
+  Table,
+  Button,
+  Form,
+  Modal,
+  Row,
+  Col,
+  Dropdown,
+  DropdownButton,
+} from "react-bootstrap";
 import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
 import {
   addProduct,
@@ -7,15 +16,26 @@ import {
   updateProduct,
 } from "../../Services/Administrator";
 
-const ProductManagement = ({ products, refreshProducts }) => {
+const ProductManagement = ({ products, refreshProducts, categories }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [showModal, setShowModal] = useState(false);
+  const allCategories = categories;
+
+  const handleCategoryChange = (e) => {
+    const { checked, value } = e.target;
+    setCurrentProduct((prev) => {
+      const newCategories = checked
+        ? [...prev.category, value]
+        : prev.category.filter((cat) => cat !== value);
+      return { ...prev, category: newCategories };
+    });
+  };
   const [currentProduct, setCurrentProduct] = useState({
     name: "",
     description: "",
     price: 0,
     category: [],
-    imgFile: null, // For handling file upload
+    imgFile: null,
     _id: null,
   });
 
@@ -82,14 +102,7 @@ const ProductManagement = ({ products, refreshProducts }) => {
         Product Management
       </h1>
       <Row className="align-items-center mb-3">
-        <Col>
-          <Form.Control
-            type="text"
-            placeholder="Search by name, description, or category"
-            value={searchTerm}
-            onChange={handleSearch}
-          />
-        </Col>
+        <Col></Col>
         <Col xs="auto">
           <Button variant="primary" onClick={() => handleShowModal()}>
             <FaPlus /> Add Product
@@ -99,6 +112,7 @@ const ProductManagement = ({ products, refreshProducts }) => {
       <Table striped bordered hover className="mt-3">
         <thead>
           <tr>
+            <th>Image</th>
             <th>Name</th>
             <th>Description</th>
             <th>Price</th>
@@ -109,10 +123,20 @@ const ProductManagement = ({ products, refreshProducts }) => {
         <tbody>
           {filteredProducts.map((product) => (
             <tr key={product._id}>
+              <td className="centersome">
+                <div className="image-container">
+                  {
+                    <img
+                      className=""
+                      src={"http://localhost:3000/products/" + product.img}
+                    />
+                  }
+                </div>
+              </td>
               <td>{product.name}</td>
               <td>{product.description}</td>
               <td>${product.price.toFixed(2)}</td>
-              <td>{product.category.join(", ")}</td>
+              <td>{product.category}</td>
               <td>
                 <Button
                   variant="warning"
@@ -183,22 +207,28 @@ const ProductManagement = ({ products, refreshProducts }) => {
                 }
               />
             </Form.Group>
-            <Form.Group>
-              <Form.Label>Category (comma-separated)</Form.Label>
-              <Form.Control
-                type="text"
-                value={currentProduct.category.join(", ")}
-                onChange={(e) =>
-                  setCurrentProduct({
-                    ...currentProduct,
-                    category: e.target.value
-                      .split(",")
-                      .map((cat) => cat.trim()),
-                  })
-                }
-              />
+            <Form.Group style={{ marginTop: "20px" }}>
+              <Form.Label>Category</Form.Label>
+              <DropdownButton
+                data-bs-theme="dark"
+                id="dropdown-basic-button"
+                title="Select Categories"
+                style={{ width: "100%" }}
+              >
+                {allCategories.map((category, index) => (
+                  <Dropdown.Item as="div" key={index} data-bs-theme="dark">
+                    <Form.Check
+                      type="checkbox"
+                      label={category.name}
+                      value={category.name}
+                      checked={currentProduct.category.includes(category.name)}
+                      onChange={handleCategoryChange}
+                    />
+                  </Dropdown.Item>
+                ))}
+              </DropdownButton>
             </Form.Group>
-            <Form.Group>
+            <Form.Group style={{ marginTop: "20px" }}>
               <Form.Label>Image</Form.Label>
               <Form.Control
                 type="file"
