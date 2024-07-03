@@ -42,7 +42,7 @@ export default class UserController {
               isadmin: user.isadmin,
               id: user._id,
             }),
-            { maxAge: 36000 }
+            { maxAge: 360000 }
           )
           .json({
             msg: "User logged in successfully",
@@ -71,5 +71,24 @@ export default class UserController {
   }
   static async logout(req, res) {
     res.clearCookie("token").json({ msg: "Logged out successfully" });
+  }
+  static async getusers(req, res) {
+    try {
+      const token = req.cookies.token;
+      const { valid, expired, decoded } = verifyJWT(token);
+      const users = await User.find({ _id: { $ne: decoded.id } });
+      res.json(users);
+    } catch (err) {
+      res.status(400).json({ error: err.message });
+    }
+  }
+  static async deleteuser(req, res) {
+    try {
+      const { id } = req.body;
+      await User.findByIdAndDelete(id);
+      res.json({ msg: "User deleted successfully" });
+    } catch (err) {
+      res.status(400).json({ error: err.message });
+    }
   }
 }

@@ -17,12 +17,10 @@ const ProductSearch = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // Handle search logic here (e.g., API call with searchTerm and filters)
+    
     console.log("Searching for:", searchTerm);
     console.log("Filters:", filters);
-    // Simulated search results
-    // Replace with actual logic to fetch and display products
-    // setProducts([...]); // Example of setting products state
+    
   };
 
   const handleFilterChange = (e) => {

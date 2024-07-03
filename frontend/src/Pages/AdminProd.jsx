@@ -3,7 +3,7 @@ import React from "react";
 import "../Style/AdminDashboard.css";
 
 import { Link } from "react-router-dom";
-import NavbarAdmin from "./../components/NavBarAdmin.jsx";
+import NavbarAdmin from "../components/NavBarAdmin.jsx";
 import {
   Container,
   Row,
@@ -15,8 +15,6 @@ import {
 } from "react-bootstrap";
 
 const AdminDashboard = () => {
- 
-
   return (
     <Container fluid style={{ height: "100vh" }}>
       <Row style={{ height: "100%" }}>
@@ -29,8 +27,7 @@ const AdminDashboard = () => {
           <Container fluid className="mt-3 h-100">
             <Card className="h-100">
               <Card.Body>
-                <h2>Welcome to Admin Dashboard</h2>
-                {/* Your main content goes here */}
+                <h2>Users</h2>
               </Card.Body>
             </Card>
           </Container>

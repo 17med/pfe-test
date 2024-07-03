@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 
-function createtoken(payload, expiresIn = "1h") {
+function createtoken(payload, expiresIn = "10h") {
   const secretKey = process.env.SECRET_KEY;
   console.log(secretKey, payload, expiresIn);
   return jwt.sign(payload, secretKey, { expiresIn });

@@ -6,9 +6,13 @@ axios.defaults.withCredentials = true;
 
 async function login(data, navigate) {
   try {
-    const x = await axios.post("http://localhost:3000/api/users/login", data);
-    const d = await axios.get("http://localhost:3000/api/Cart/getCart");
-    console.log("dataaaaaaaaaaaaa", x.data, d.data);
+    const x = await axios.post("http://localhost:3000/api/users/login", data, {
+      withCredentials: true,
+    });
+    const d = await axios.get("http://localhost:3000/api/Cart/getCart", {
+      withCredentials: true,
+    });
+    
     StateManaer.getState().login(
       x.data.user,
       x.data.id,
@@ -51,8 +55,12 @@ async function logout() {
 }
 async function islogin() {
   try {
-    const x = await axios.get("http://localhost:3000/api/users/islogin");
-    const d = await axios.get("http://localhost:3000/api/Cart/getCart");
+    const x = await axios.get("http://localhost:3000/api/users/islogin", {
+      withCredentials: true,
+    });
+    const d = await axios.get("http://localhost:3000/api/Cart/getCart", {
+      withCredentials: true,
+    });
     console.log("cart", d.data.cart);
     console.log("islogin", x.data);
     StateManaer.getState().login(x.data.username, x.data.id, d.data.cart);

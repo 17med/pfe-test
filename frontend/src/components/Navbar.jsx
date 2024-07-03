@@ -26,15 +26,17 @@ const NavbarComponent = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Link to={"/home"} style={{ textDecoration: "none" }}>
+            <Link to={"/home#home"} style={{ textDecoration: "none" }}>
               {" "}
               <Nav.Link href="#home" className="mx-2">
                 Accueil
               </Nav.Link>
             </Link>
-            <Nav.Link href="#features" className="mx-2">
-              Consulter les produits
-            </Nav.Link>
+            <Link to={"/search#features"} style={{ textDecoration: "none" }}>
+              <Nav.Link href="#features" className="mx-2">
+                Consulter les produits
+              </Nav.Link>
+            </Link>
           </Nav>
           <Nav>
             {!isLoggedIn ? (
@@ -56,6 +58,9 @@ const NavbarComponent = () => {
                   <CiShoppingBasket
                     className="cart-icon"
                     style={{ fontSize: "20px" }}
+                    onClick={() => {
+                      useLoginStore.setState({ show: true });
+                    }}
                   />
 
                   {cart != null && cart.products.length > 0 && (
