@@ -11,7 +11,7 @@ export default class CommandeController {
         product: products,
         total,
       });
-      //delete cart
+      
       const cart = await Cart.findOneAndDelete({ user: user.id });
 
       res.json({ msg: "Commande added successfully", newCommande });

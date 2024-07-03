@@ -6,7 +6,7 @@ import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 import { BsSearch } from "react-icons/bs";
 import ProductList from "../components/ProductList";
 const ProductSearch = () => {
-  const [categories, setcategories] = useState([]); // ["all", "electronics", "clothing", "home"
+  const [categories, setcategories] = useState([]); 
   const [searchTerm, setSearchTerm] = useState("");
   const [product, setproduct] = useState([]);
   useEffect(() => {

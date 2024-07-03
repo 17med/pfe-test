@@ -138,7 +138,7 @@ export async function addProduct(data, refresh) {
   }
 }
 
-// Function to delete a product
+
 export async function deleteProduct(id, refresh) {
   try {
     const response = await axios.post(
@@ -153,7 +153,7 @@ export async function deleteProduct(id, refresh) {
   }
 }
 
-// Function to update a product
+
 export async function updateProduct(data, refresh) {
   try {
     const formData = data;

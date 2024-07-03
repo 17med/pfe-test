@@ -6,7 +6,7 @@ export default class UserController {
     try {
       const { username, tel, email, password } = req.body;
       console.log(req.body);
-      //const salt = bcrypt.genSaltSync(10);
+      
       const password2 = await bcrypt.hashSync(password, 10);
 
       const user = await User.create({
