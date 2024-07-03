@@ -4,20 +4,17 @@ import Modal from "react-bootstrap/Modal";
 import ListGroup from "react-bootstrap/ListGroup";
 import StateManager from "./../Services/StateManager";
 import "../Style/cart.css";
+import { deletefromcart } from "../Services/User.js";
 
 function Cart() {
   const show = StateManager((state) => state.show);
-  const [cartItems, setCartItems] = useState([
-    { id: 1, name: "Item 1", price: 10 },
-    { id: 2, name: "Item 2", price: 15 },
-    { id: 3, name: "Item 3", price: 20 },
-  ]);
+  const cartItems = StateManager((state) => state.cart);
 
   const handleClose = () => StateManager.setState({ show: false });
   const handleShow = () => StateManager.setState({ show: true });
 
   const handleRemoveItem = (id) => {
-    setCartItems(cartItems.filter((item) => item.id !== id));
+    deletefromcart({ id: id }, StateManager.getState().ajouter);
   };
 
   return (
@@ -34,7 +31,7 @@ function Cart() {
                   key={item.id}
                   className="d-flex justify-content-between align-items-center"
                 >
-                  {item.name} - ${item.price}
+                  {item.name} -(x {item.amount}) ${item.price * item.amount}
                   <Button
                     variant="danger"
                     size="sm"
@@ -53,7 +50,11 @@ function Cart() {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="primary" onClick={handleClose}>
+          <Button
+            variant="primary"
+            disabled={cartItems.length === 0}
+            onClick={handleClose}
+          >
             Checkout
           </Button>
         </Modal.Footer>

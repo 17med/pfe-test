@@ -63,9 +63,14 @@ async function islogin() {
     const d = await axios.get("http://localhost:3000/api/Cart/getCart", {
       withCredentials: true,
     });
-    console.log("cart", d.data.cart);
+    console.log("cart", d.data);
     console.log("islogin", x.data);
-    StateManaer.getState().login(x.data.username, x.data.id, d.data.cart);
+    StateManaer.getState().login(
+      x.data.username,
+      x.data.id,
+      d.data.products,
+      x.data.isadmin
+    );
     return true;
   } catch (err) {
     return false;
@@ -77,8 +82,70 @@ async function getrandom(setx) {
     const x = await axios.get("http://localhost:3000/api/Products/getrandom", {
       withCredentials: true,
     });
-    console.log(x.data, "datttttttttttttttttttttttaaaaaaaaaa");
+
     setx(x.data);
   } catch (err) {}
 }
-export { login, signup, logout, islogin, getrandom };
+async function addprod(prod, ajouter) {
+  try {
+    const x = await axios.post(
+      "http://localhost:3000/api/Cart/addtocart",
+      prod,
+      {
+        withCredentials: true,
+      }
+    );
+    ajouter(x.data.cart);
+    toast.success("done");
+  } catch (err) {
+    toast.error(err.response.data.error);
+  }
+}
+async function deletefromcart(prod, ajouter) {
+  try {
+    const x = await axios.post(
+      "http://localhost:3000/api/Cart/deletefromcart",
+      prod,
+      {
+        withCredentials: true,
+      }
+    );
+    ajouter(x.data.cart);
+    toast.success("done");
+  } catch (err) {
+    toast.error(err.response.data.error);
+  }
+}
+
+async function getCategories(setcategories) {
+  try {
+    const x = await axios.get(
+      "http://localhost:3000/api/Category/getcategories"
+    );
+    setcategories(x.data);
+  } catch (err) {
+    console.log(err, "errrrrrrrrrrrrrrrrror");
+    toast.error(err.response.data.error);
+  }
+}
+async function searchProduct(data, setproducts) {
+  try {
+    const x = await axios.post("http://localhost:3000/api/Search", data);
+    setproducts(x.data);
+    console.log(x.data, "search");
+  } catch (err) {
+    console.log(err);
+    toast.error(err.response.data.error);
+  }
+}
+export {
+  login,
+  signup,
+  logout,
+  islogin,
+  getrandom,
+  addprod,
+  deletefromcart,
+  getCategories,
+  searchProduct,
+};

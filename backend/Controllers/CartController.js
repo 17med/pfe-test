@@ -2,24 +2,48 @@ import Cart from "../Models/CartModel.js";
 export default class CartController {
   static async addProduct(req, res) {
     try {
-      const { id, name, price } = req.body;
+      const { _id, name, price, amount } = req.body;
       const user = req.user;
-      const cart = await Cart.findOne({ user });
+
+      const cart = await Cart.findOne({ user: user.id });
+
       if (!cart) {
         const newCart = await Cart.create({
           user,
-          products: [{ id, name, price }],
+          products: [
+            {
+              id: req.body._id,
+              name: name,
+              price: price,
+              amount: amount,
+            },
+          ],
         });
         res.json({ msg: "Product added to cart successfully", newCart });
       } else {
-        const product = cart.products.find((p) => p.id === id);
+        console.log(cart.products);
+        var product = cart.products.find((p) => p.id === req.body._id);
         if (product) {
-          product.number += 1;
+          product.amount += 1;
         } else {
-          cart.products.push({ id, name, price });
+          cart.products.push({
+            id: req.body._id,
+            name: name,
+            price: price,
+            amount: amount,
+          });
+          console.log(cart.products, {
+            id: req.body._id,
+            name: name,
+            price: price,
+            amount: amount,
+          });
         }
         await cart.save();
-        res.json({ msg: "Product added to cart successfully", cart });
+        res.json({
+          msg: "Product added to cart successfully",
+          cart: cart.products,
+        });
       }
     } catch (err) {
       res.status(400).json({ error: err.message });
@@ -29,7 +53,8 @@ export default class CartController {
     try {
       const { id } = req.body;
       const user = req.user;
-      const cart = await Cart.findOne({ user });
+      console.log(user);
+      const cart = await Cart.findOne({ user: user.id });
       if (!cart) {
         res.status(400).json({ error: "Cart not found" });
         return;
@@ -39,13 +64,16 @@ export default class CartController {
         res.status(400).json({ error: "Product not found" });
         return;
       }
-      if (product.number > 1) {
-        product.number -= 1;
+      if (product.amount > 1) {
+        product.amount -= 1;
       } else {
         cart.products = cart.products.filter((p) => p.id !== id);
       }
       await cart.save();
-      res.json({ msg: "Product removed from cart successfully", cart });
+      res.json({
+        msg: "Product removed from cart successfully",
+        cart: cart.products,
+      });
     } catch (err) {
       res.status(400).json({ error: err.message });
     }

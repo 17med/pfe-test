@@ -1,34 +1,30 @@
 import "../Style/ProductSearch.css";
 import NavBar from "../components/Navbar";
-
-
-
-import React, { useState } from "react";
+import { getCategories, searchProduct } from "../Services/User";
+import React, { useEffect, useState } from "react";
 import { Container, Row, Col, Form, Button, Card } from "react-bootstrap";
 import { BsSearch } from "react-icons/bs";
-
+import ProductList from "../components/ProductList";
 const ProductSearch = () => {
+  const [categories, setcategories] = useState([]); // ["all", "electronics", "clothing", "home"
   const [searchTerm, setSearchTerm] = useState("");
-  const [filters, setFilters] = useState({
-    category: "",
-    priceRange: "",
-    
-  });
+  const [product, setproduct] = useState([]);
+  useEffect(() => {
+    getCategories(setcategories);
+    searchProduct({ search: "", category: "all" }, setproduct);
+  }, []);
 
+  const [filters, setFilters] = useState("");
+  useEffect(() => {
+    searchProduct({ search: searchTerm, category: filters }, setproduct);
+  }, [filters, searchTerm]);
   const handleSearch = (e) => {
-    e.preventDefault();
-    
-    console.log("Searching for:", searchTerm);
-    console.log("Filters:", filters);
-    
+    searchProduct({ search: searchTerm, category: filters }, setproduct);
   };
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
-    setFilters({
-      ...filters,
-      [name]: value,
-    });
+    setFilters(value);
   };
 
   return (
@@ -41,20 +37,13 @@ const ProductSearch = () => {
             <Card className="shadow-sm">
               <Card.Body>
                 <h2 className="mb-4">Product Search</h2>
-                <Form onSubmit={handleSearch}>
+                <Form>
                   <Form.Control
                     type="text"
                     placeholder="Enter product name..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                   />
-                  <Button
-                    variant="primary"
-                    type="submit"
-                    className="mt-3 w-100"
-                  >
-                    <BsSearch /> Search
-                  </Button>
                 </Form>
                 <Form.Select
                   className="mt-3"
@@ -62,24 +51,19 @@ const ProductSearch = () => {
                   value={filters.category}
                   onChange={handleFilterChange}
                 >
-                  <option value="">Select category...</option>
-                  <option value="electronics">Electronics</option>
-                  <option value="clothing">Clothing</option>
-                  <option value="books">Books</option>
+                  <option value="all">Select category...</option>
+                  {categories.map((category) => (
+                    <option value={category.name}>{category.name}</option>
+                  ))}
                   {/* Add more categories as needed */}
                 </Form.Select>
-                <Form.Select
-                  className="mt-3"
-                  name="priceRange"
-                  value={filters.priceRange}
-                  onChange={handleFilterChange}
+                <Button
+                  variant="primary"
+                  onClick={handleSearch}
+                  className="mt-3 w-100"
                 >
-                  <option value="">Select price range...</option>
-                  <option value="0-50">$0 - $50</option>
-                  <option value="51-100">$51 - $100</option>
-                  <option value="101-200">$101 - $200</option>
-                  {/* Add more price ranges as needed */}
-                </Form.Select>
+                  <BsSearch /> Search
+                </Button>
                 {/* Add more filter options here */}
               </Card.Body>
             </Card>
@@ -89,8 +73,13 @@ const ProductSearch = () => {
             <Card className="shadow-sm">
               <Card.Body>
                 <h2 className="mb-4">Product List</h2>
-                {/* Replace with actual product list or search results */}
-                <p>No products found.</p>
+                {product.length == 0 ? (
+                  <p>No products found.</p>
+                ) : (
+                  <>
+                    <ProductList prodlist={product} />
+                  </>
+                )}
               </Card.Body>
             </Card>
           </Col>

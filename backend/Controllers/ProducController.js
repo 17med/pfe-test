@@ -64,6 +64,7 @@ export default class ProductController {
   static async updateproduct(req, res) {
     try {
       const { id, name, price, category } = req.body;
+      console.log(category, "category");
       var productImage = req.file ? req.file.filename : "";
       if (productImage !== "") {
         const product = await Product.findByIdAndUpdate(id, {

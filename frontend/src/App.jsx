@@ -26,7 +26,7 @@ function App() {
       <ToastContainer autoClose={5000} pauseOnFocusLoss={false} />
       <BrowserRouter>
         <Routes>
-          {isadmin == false ? (
+          {isadmin != true ? (
             <>
               <Route path="/" element={<Navigate to="/home" />} />
               <Route path="/home" element={<Home />} />

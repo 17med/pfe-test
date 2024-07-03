@@ -10,7 +10,7 @@ import { logout } from "./../Services/User.js";
 const NavbarComponent = () => {
   const isLoggedIn = useLoginStore((state) => state.isLoggedIn);
   const cart = useLoginStore((state) => state.cart);
-  console.log(useLoginStore.getState());
+
   return (
     <Navbar
       bg="dark"
@@ -63,12 +63,12 @@ const NavbarComponent = () => {
                     }}
                   />
 
-                  {cart != null && cart.products.length > 0 && (
+                  {cart != null && cart.length > 0 && (
                     <span
                       className="cart-count"
                       style={{ marginTop: "-100px" }}
                     >
-                      {cart.products.length}
+                      {cart.length}
                     </span>
                   )}
                 </Nav.Link>

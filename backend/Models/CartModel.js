@@ -14,7 +14,7 @@ const ProdSchema = new Schema({
     type: Number,
     required: true,
   },
-  number: {
+  amount: {
     type: Number,
     required: true,
     default: 1,

@@ -5,6 +5,7 @@ import { getAllProducts, getCategories } from "../Services/Administrator.js";
 import { Link } from "react-router-dom";
 import NavbarAdmin from "../components/NavBarAdmin.jsx";
 import ProdManagment from "../components/Admin/ProdManagment.jsx";
+
 import {
   Container,
   Row,

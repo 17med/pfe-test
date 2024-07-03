@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   Button,
@@ -24,12 +24,16 @@ const ProductManagement = ({ products, refreshProducts, categories }) => {
   const handleCategoryChange = (e) => {
     const { checked, value } = e.target;
     setCurrentProduct((prev) => {
-      const newCategories = checked
-        ? [...prev.category, value]
-        : prev.category.filter((cat) => cat !== value);
+      let newCategories;
+      if (checked && !prev.category.includes(value)) {
+        newCategories = [...prev.category, value];
+      } else {
+        newCategories = prev.category.filter((cat) => cat !== value);
+      }
       return { ...prev, category: newCategories };
     });
   };
+
   const [currentProduct, setCurrentProduct] = useState({
     name: "",
     description: "",
@@ -38,7 +42,9 @@ const ProductManagement = ({ products, refreshProducts, categories }) => {
     imgFile: null,
     _id: null,
   });
-
+  useEffect(() => {
+    console.log("products", currentProduct);
+  }, [currentProduct]);
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
   };
@@ -69,7 +75,9 @@ const ProductManagement = ({ products, refreshProducts, categories }) => {
     formData.append("name", currentProduct.name);
     formData.append("description", currentProduct.description);
     formData.append("price", currentProduct.price);
-    formData.append("category", currentProduct.category.join(","));
+    currentProduct.category.forEach((cat) => {
+      formData.append("category", cat);
+    });
     if (currentProduct.imgFile) {
       formData.append("image", currentProduct.imgFile);
     }
