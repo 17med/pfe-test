@@ -6,6 +6,7 @@ import { AiOutlineProduct } from "react-icons/ai";
 import { MdOutlineProductionQuantityLimits } from "react-icons/md";
 import { IoHomeOutline } from "react-icons/io5";
 import { logout } from "./../Services/User.js";
+import { CiCircleList } from "react-icons/ci";
 const NavbarAdmin = () => {
   const handleLogout = () => {
     logout();
@@ -26,6 +27,12 @@ const NavbarAdmin = () => {
           <Nav.Link href="#users" className="nav-link-custom">
             <LuUsers2 className="nav-icon" />
             Utilisateur
+          </Nav.Link>
+        </Link>
+        <Link to="/admin/category" className="linkurl">
+          <Nav.Link href="#products" className="nav-link-custom">
+            <CiCircleList className="nav-icon" />
+            Category
           </Nav.Link>
         </Link>
         <Link to="/admin/product" className="linkurl">

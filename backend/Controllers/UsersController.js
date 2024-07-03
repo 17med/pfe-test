@@ -91,4 +91,21 @@ export default class UserController {
       res.status(400).json({ error: err.message });
     }
   }
+  static async updateuser(req, res) {
+    try {
+      const { _id, username, tel, email, password } = req.body;
+      const user = await User.findById(_id);
+      user.username = username;
+      user.tel = tel;
+      user.email = email;
+      if (user.password !== password) {
+        user.password = await bcrypt.hashSync(password, 10);
+      }
+
+      user.save();
+      res.json({ msg: "User updated successfully" });
+    } catch (err) {
+      res.status(400).json({ error: err.message });
+    }
+  }
 }

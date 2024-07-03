@@ -1,26 +1,20 @@
 import { upload } from "../Services/Upload.js";
 import Product from "../Models/ProductModel.js";
 export default class ProductController {
-
   static async addProduct(req, res) {
     try {
-      upload(req, res, async (err) => {
-        if (err) {
-          return res.status(400).json({ error: err });
-        } else {
-          const { name, price, category } = req.body;
-          const productImage = req.file ? req.file.filename : "";
+      const { name, price, category } = req.body;
+      console.log(req.body);
+      const productImage = req.file ? req.file.filename : "";
 
-          const product = await Product.create({
-            name,
-            price,
-            category,
-            img: productImage,
-          });
-
-          res.json({ msg: "Product added successfully", product });
-        }
+      const product = await Product.create({
+        name,
+        price,
+        category,
+        img: productImage,
       });
+
+      res.json({ msg: "Product added successfully", product });
     } catch (err) {
       res.status(400).json({ error: err.message });
     }
@@ -90,5 +84,4 @@ export default class ProductController {
       res.status(400).json({ error: err.message });
     }
   }
-  
 }

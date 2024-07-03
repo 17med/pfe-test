@@ -13,7 +13,7 @@ const ProductSchema = new Schema({
   },
   category: {
     type: [String],
-    required: true,
+    default: [],
   },
   img: String,
 });

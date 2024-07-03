@@ -2,10 +2,11 @@ import express from "express";
 import ProductController from "../Controllers/ProducController.js";
 import UserMiddleware from "../Middlewares/UsersMiddleware.js";
 const router = express.Router();
-
+import { upload } from "../Services/Upload.js";
 router.post(
   "/addproduct",
   UserMiddleware.isadmin,
+  upload.single("image"),
   ProductController.addProduct
 );
 router.post(

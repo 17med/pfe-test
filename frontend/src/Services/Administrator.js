@@ -38,3 +38,140 @@ export async function deleteuser(data, refrech) {
     toast.error(err.response.data.error);
   }
 }
+export async function updateuser(data, refrech) {
+  try {
+    console.log(data);
+    const x = await axios.post("http://localhost:3000/api/users/update", data);
+    refrech();
+    toast.success("done");
+  } catch (err) {
+    toast.error(err.response.data.error);
+  }
+}
+export async function addCategory(data, refresh) {
+  try {
+    console.log(data);
+    const x = await axios.post(
+      "http://localhost:3000/api/Category/addcategory",
+      data
+    );
+    toast.success("done");
+    refresh();
+  } catch (err) {
+    toast.error(err.response.data.error);
+  }
+}
+export async function getCategories(setcategories) {
+  try {
+    const x = await axios.get(
+      "http://localhost:3000/api/Category/getcategories"
+    );
+    setcategories(x.data);
+    console.log(x.data);
+  } catch (err) {
+    toast.error(err.response.data.error);
+  }
+}
+export async function deleteCategory(data, refrech) {
+  try {
+    console.log(data);
+    const x = await axios.post(
+      "http://localhost:3000/api/Category/deletecategory",
+      data
+    );
+    refrech();
+    toast.success("done");
+  } catch (err) {
+    toast.error(err.response.data.error);
+  }
+}
+export async function updateCategory(data, refrech) {
+  try {
+    console.log(data);
+    const x = await axios.post(
+      "http://localhost:3000/api/Category/updatecategory",
+      data
+    );
+    refrech();
+    toast.success("done");
+  } catch (err) {
+    toast.error(err.response.data.error);
+  }
+}
+
+export async function addProduct(data, refresh) {
+  try {
+    const formData = data;
+    console.log(formData.get("name"), "data");
+    const response = await axios.post(
+      "http://localhost:3000/api/Products/addproduct",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    toast.success(response.data.msg);
+
+    refresh();
+  } catch (err) {
+    console.log(err);
+    toast.error(err.response.data.error);
+  }
+}
+
+// Function to delete a product
+export async function deleteProduct(id, refresh) {
+  try {
+    const response = await axios.post(
+      "http://localhost:3000/api/Products/deleteproduct",
+      { id }
+    );
+
+    toast.success(response.data.msg);
+    refresh(); // Optional: Call a function to refresh the product list
+  } catch (err) {
+    toast.error(err.response.data.error);
+  }
+}
+
+// Function to update a product
+export async function updateProduct(data, refresh) {
+  try {
+    const formData = new FormData();
+    formData.append("id", data.id);
+    formData.append("name", data.name);
+    formData.append("price", data.price);
+    formData.append("category", data.category);
+    formData.append("image", data.image);
+
+    const response = await axios.post(
+      "http://localhost:3000/api/Products/getallproducts",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    toast.success(response.data.msg);
+    refresh(); // Optional: Call a function to refresh the product list
+  } catch (err) {
+    toast.error(err.response.data.error);
+  }
+}
+
+// Function to get all products
+export async function getAllProducts(setProducts) {
+  try {
+    const response = await axios.get(
+      "http://localhost:3000/api/Products/getallproducts"
+    );
+    setProducts(response.data);
+  } catch (err) {
+    toast.error(err.response.data.error);
+  }
+}

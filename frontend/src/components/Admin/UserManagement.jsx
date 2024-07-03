@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Table, Button, Form, Modal, Row, Col } from "react-bootstrap";
 import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
-import { signup, deleteuser } from "../../Services/Administrator";
+import { signup, deleteuser, updateuser } from "../../Services/Administrator";
 const UserManagement = ({ users, refrech }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [showModal, setShowModal] = useState(false);
@@ -31,6 +31,8 @@ const UserManagement = ({ users, refrech }) => {
   const handleSaveUser = () => {
     if (currentUser._id === null) {
       signup(currentUser, refrech);
+    } else {
+      updateuser(currentUser, refrech);
     }
     handleCloseModal();
   };

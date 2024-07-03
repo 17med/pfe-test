@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 
 import "../Style/AdminDashboard.css";
-import { getAllProducts } from "../Services/Administrator.js";
+
 import { Link } from "react-router-dom";
-import NavbarAdmin from "../components/NavBarAdmin.jsx";
-import ProdManagment from "../components/Admin/ProdManagment.jsx";
+import NavbarAdmin from "./../components/NavBarAdmin.jsx";
 import {
   Container,
   Row,
@@ -14,16 +13,19 @@ import {
   Button,
   Card,
 } from "react-bootstrap";
-
+import CategoryManagement from "../components/Admin/CategoryManagement.jsx";
+import { getCategories } from "../Services/Administrator.js";
+import { useState } from "react";
 const AdminDashboard = () => {
-  const [product, setproduct] = useState([]);
-  const [refrechvar, setrefrechvar] = useState(false);
-  useEffect(() => {
-    getAllProducts(setproduct);
-  }, [refrechvar]);
+  const [category, setcategory] = useState([]);
+  const [refrechvar, setrefrech] = useState(false);
   const refrech = () => {
-    setrefrechvar(!refrechvar);
+    setrefrech(!refrechvar);
   };
+  useEffect(() => {
+    getCategories(setcategory);
+  }, [refrechvar]);
+
   return (
     <Container fluid style={{ height: "100vh" }}>
       <Row style={{ height: "100%" }}>
@@ -36,8 +38,7 @@ const AdminDashboard = () => {
           <Container fluid className="mt-3 h-100">
             <Card className="h-100">
               <Card.Body>
-                <h2>Product</h2>
-                <ProdManagment products={product} refreshProducts={refrech} />
+                <CategoryManagement categories={category} refrech={refrech} />
               </Card.Body>
             </Card>
           </Container>

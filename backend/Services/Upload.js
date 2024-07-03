@@ -1,21 +1,16 @@
 import multer from "multer";
+import path from "path";
 const storage = multer.diskStorage({
-  destination: "../static/products/",
+  destination: "static/products",
   filename: function (req, file, cb) {
-    cb(
-      null,
-      file.fieldname + "-" + Date.now() + path.extname(file.originalname)
-    );
+    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
+
+    const ext = path.extname(file.originalname);
+    cb(null, file.fieldname + "-" + uniqueSuffix + ext);
   },
 });
 
-const upload = multer({
-  storage: storage,
-  limits: { fileSize: 10000000 },
-  fileFilter: function (req, file, cb) {
-    checkFileType(file, cb);
-  },
-}).single("productImage");
+const upload = multer({ storage: storage });
 
 function checkFileType(file, cb) {
   const filetypes = /jpeg|jpg|png|gif/;

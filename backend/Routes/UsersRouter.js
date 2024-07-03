@@ -9,4 +9,5 @@ router.get("/islogin", UsersController.islogin);
 router.get("/logout", UsersController.logout);
 router.get("/users", UsersMiddleware.isadmin, UsersController.getusers);
 router.post("/delete", UsersMiddleware.isadmin, UsersController.deleteuser);
+router.post("/update", UsersMiddleware.isadmin, UsersController.updateuser);
 export default router;
