@@ -1,0 +1,22 @@
+/* App.css */
+.app {
+  padding-top: 20px;
+}
+
+.sidebar {
+  background-color: #f8f9fa; /* Bootstrap light gray background color */
+  min-height: 100vh; /* Full height sidebar */
+  border-right: 1px solid #e9ecef; /* Bootstrap light border color */
+}
+
+.navbar {
+  padding: 20px;
+}
+
+.product-list {
+  padding: 20px;
+}
+
+.content {
+  padding-left: 30px; /* Adjust for sidebar width */
+}

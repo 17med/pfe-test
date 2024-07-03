@@ -1,0 +1,42 @@
+/* App.css */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+.linkurl {
+  color: #000;
+  text-decoration: none;
+}
+.linkurl:hover {
+  color: #000;
+  text-decoration: underline;
+}
+
+.navbar {
+  background-color: #333;
+  color: #fff;
+  padding: 10px 20px;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000; /* Ensures it's above other content */
+}
+
+.scrollx {
+  margin-top: 50px; /* Adjust based on navbar height */
+  /* Other styles for your content area */
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #333;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #666;
+  border-radius: 10px;
+}
